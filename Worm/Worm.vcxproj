@@ -145,6 +145,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="Validate.cpp" />
+    <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADisplay.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Powerup.h" />
     <ClInclude Include="Validate.h" />
+    <ClInclude Include="Worm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

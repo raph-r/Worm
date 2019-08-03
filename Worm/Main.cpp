@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "allegro5/allegro_font.h"
 #include "Powerup.h"
+#include "Worm.h"
 #include <memory>
 
 #define KEY_SEEN 1
@@ -39,9 +40,15 @@ int main(int argn, char** argv)
 	ALLEGRO_COLOR ACBlack = al_map_rgba_f(0, 0, 0, 0);
 	ALLEGRO_COLOR ACWhite = al_map_rgba_f(1, 1, 1, 1);
 
+	// Screen Bounderies
 	Object OScreenBoundaries(10, 10, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "Screen Boundaries");
+
+	// Power up
 	Powerup powerup(50, 50, 10, 10, "Power up");
 	
+	// Worm
+	Worm worm(10, 10);
+
 	//captures the current event
 	ALLEGRO_EVENT event;
 	
@@ -67,6 +74,22 @@ int main(int argn, char** argv)
 				if (key[ALLEGRO_KEY_C])
 				{
 					powerup.change_location();
+				}
+				if (key[ALLEGRO_KEY_UP])
+				{
+					// TODO
+				}
+				if (key[ALLEGRO_KEY_DOWN])
+				{
+					// TODO
+				}
+				if (key[ALLEGRO_KEY_LEFT])
+				{
+					// TODO
+				}
+				if (key[ALLEGRO_KEY_RIGHT])
+				{
+					// TODO
 				}
 				// Reset array of keys
 				for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
@@ -95,7 +118,7 @@ int main(int argn, char** argv)
 
 			// draw Screen boundaries
 			al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
-
+			worm.draw(&ACWhite);
 			powerup.draw(&ACWhite);
 
 			al_flip_display();

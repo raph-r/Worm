@@ -12,4 +12,3 @@ class Powerup : public Object
 		void draw(ALLEGRO_COLOR * color);
 		void change_location();
 };
-
