@@ -55,13 +55,17 @@ int main(int argn, char** argv)
 		switch (event.type)
 		{
 			case ALLEGRO_EVENT_TIMER:
+				//Exit game
+				if (key[ALLEGRO_KEY_ESCAPE])
+				{
+					continue_to_play = false;
+				}
 				// Reset array of keys
 				for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
 				{
 					key[i] &= KEY_SEEN;
 				}
 				draw = true;
-				
 				break;
 			case ALLEGRO_EVENT_KEY_DOWN:
 				key[event.keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
