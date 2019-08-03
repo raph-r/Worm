@@ -2,6 +2,7 @@
 #include "ADisplay.h"
 #include "AEventQueue.h"
 #include "Validate.h"
+#include "Object.h"
 #include "allegro5/allegro_font.h"
 #include "allegro5/allegro_primitives.h"
 #include <memory>
@@ -37,6 +38,8 @@ int main(int argn, char** argv)
 	// color palettes
 	ALLEGRO_COLOR ACBlack = al_map_rgba_f(0, 0, 0, 0);
 	ALLEGRO_COLOR ACWhite = al_map_rgba_f(1, 1, 1, 1);
+
+	Object OScreenBoundaries(10, 10, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "Screen Boundaries");
 	
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -84,7 +87,11 @@ int main(int argn, char** argv)
 		{
 			draw = false;
 			al_clear_to_color(ACBlack);
-			//draw
+
+			// draw Screen boundaries
+			al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
+
+
 			al_flip_display();
 		}
 	}
