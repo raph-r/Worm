@@ -31,6 +31,16 @@ int Object::collision_line_right() const
 	return this->top_left_x + this->width;
 }
 
+void Object::add_horizontal(const int & quantity)
+{
+	this->top_left_x += quantity;
+}
+
+void Object::add_vertical(const int & quantity)
+{
+	this->top_left_y += quantity;
+}
+
 const char * Object::get_name()
 {
 	return this->name;

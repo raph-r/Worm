@@ -17,5 +17,7 @@ public:
 	int collision_line_botton() const;
 	int collision_line_left() const;
 	int collision_line_right() const;
+	void add_horizontal(const int& quantity);
+	void add_vertical(const int& quantity);
 	const char * get_name();
 };
