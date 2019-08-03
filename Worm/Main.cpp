@@ -4,7 +4,7 @@
 #include "Validate.h"
 #include "Object.h"
 #include "allegro5/allegro_font.h"
-#include "allegro5/allegro_primitives.h"
+#include "Powerup.h"
 #include <memory>
 
 #define KEY_SEEN 1
@@ -40,6 +40,7 @@ int main(int argn, char** argv)
 	ALLEGRO_COLOR ACWhite = al_map_rgba_f(1, 1, 1, 1);
 
 	Object OScreenBoundaries(10, 10, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "Screen Boundaries");
+	Powerup powerup(50, 50, 10, 10, "Power up");
 	
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -62,6 +63,10 @@ int main(int argn, char** argv)
 				if (key[ALLEGRO_KEY_ESCAPE])
 				{
 					continue_to_play = false;
+				}
+				if (key[ALLEGRO_KEY_C])
+				{
+					powerup.change_location();
 				}
 				// Reset array of keys
 				for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
@@ -91,6 +96,7 @@ int main(int argn, char** argv)
 			// draw Screen boundaries
 			al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
 
+			powerup.draw(&ACWhite);
 
 			al_flip_display();
 		}

@@ -143,6 +143,7 @@
     <ClCompile Include="ATimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="Validate.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="AFont.h" />
     <ClInclude Include="ATimer.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Powerup.h" />
     <ClInclude Include="Validate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
