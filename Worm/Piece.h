@@ -15,8 +15,6 @@ class Piece : public Object
 	public:
 		Piece(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name);
 		~Piece();
-		void add_top_left_x(const int& value);
-		void add_top_left_y(const int& value);
 		void set_direction(const unsigned int& direction);
 		void move();
 		unsigned int get_direction();

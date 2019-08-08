@@ -42,9 +42,18 @@ bool Object::is_overlapped(const Object const * object)
 	}
 	return false;
 }
-}
 
 const char * Object::get_name()
 {
 	return this->name;
+}
+
+void Object::add_top_left_x(const int & value)
+{
+	this->top_left_x += value;
+}
+
+void Object::add_top_left_y(const int & value)
+{
+	this->top_left_y += value;
 }

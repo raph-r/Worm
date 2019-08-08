@@ -19,4 +19,6 @@ public:
 	int collision_line_right() const;
 	bool is_overlapped(const Object const * object);
 	const char * get_name();
+	void add_top_left_x(const int& value);
+	void add_top_left_y(const int& value);
 };

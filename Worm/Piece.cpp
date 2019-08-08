@@ -4,16 +4,6 @@ Piece::Piece(const int& top_left_x, const int& top_left_y, const int& width, con
 
 Piece::~Piece(){}
 
-void Piece::add_top_left_x(const int & value)
-{
-	this->top_left_x += value;
-}
-
-void Piece::add_top_left_y(const int & value)
-{
-	this->top_left_y += value;
-}
-
 void Piece::set_direction(const unsigned int & new_direction)
 {
 	if (this->direction != new_direction && Util::is_horizontal(this->direction) != Util::is_horizontal(new_direction))
