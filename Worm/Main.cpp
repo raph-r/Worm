@@ -71,6 +71,10 @@ int main(int argn, char** argv)
 				{
 					continue_to_play = false;
 				}
+				else
+				{
+					continue_to_play = !worm.is_collided_screen_boundaries(&OScreenBoundaries);
+				}
 				if (key[ALLEGRO_KEY_UP])
 				{
 					worm.add_move_command(ALLEGRO_KEY_UP);
@@ -87,7 +91,6 @@ int main(int argn, char** argv)
 				{
 					worm.add_move_command(ALLEGRO_KEY_RIGHT);
 				}
-				continue_to_play = !worm.is_collided_screen_boundaries(&OScreenBoundaries);
 				worm.move();
 				if (worm.is_collided_power_up(&powerup))
 				{
