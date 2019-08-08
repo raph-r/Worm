@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "allegro5/allegro.h"
+#include "Util.h"
 
 class Piece : public Object
 {
@@ -11,7 +11,6 @@ class Piece : public Object
 		void left();
 		void right();
 		void down();
-		bool is_horizontal(const unsigned int& direction);
 
 	public:
 		Piece(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name);

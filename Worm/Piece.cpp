@@ -16,7 +16,7 @@ void Piece::add_top_left_y(const int & value)
 
 void Piece::set_direction(const unsigned int & new_direction)
 {
-	if (this->direction != new_direction && this->is_horizontal(this->direction) != this->is_horizontal(new_direction))
+	if (this->direction != new_direction && Util::is_horizontal(this->direction) != Util::is_horizontal(new_direction))
 	{
 		this->direction = new_direction;
 	}
@@ -66,13 +66,4 @@ void Piece::right()
 void Piece::down()
 {
 	this->top_left_y += this->acceleration;
-}
-
-bool Piece::is_horizontal(const unsigned int & direction)
-{
-	if (direction == ALLEGRO_KEY_LEFT || direction == ALLEGRO_KEY_RIGHT)
-	{
-		return true;
-	}
-	return false;
 }
