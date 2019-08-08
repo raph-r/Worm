@@ -12,5 +12,7 @@ void Powerup::draw(ALLEGRO_COLOR * color)
 void Powerup::change_location()
 {
 	this->top_left_x = rand() % ((640 - 20) - this->width) + 10; // screen width - margin left and right - object width
+	this->top_left_x -= (this->top_left_x % 10);
 	this->top_left_y = rand() % ((480 - 20) - this->height) + 10; // screen height - margin top and botton - object height
+	this->top_left_y -= (this->top_left_y % 10);
 }
