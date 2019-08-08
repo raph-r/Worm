@@ -1,19 +1,26 @@
 #pragma once
-#include <vector>
+#include <deque>
 #include <memory>
-#include "Object.h"
+#include "Piece.h"
 #include "allegro5/allegro_primitives.h"
+#include <iostream>
 
 class Worm
 {
 private:
-	std::vector<std::unique_ptr<Object>> VUPOWormBody;
-	bool is_move_horizontal = true;
+	std::deque<std::shared_ptr<Piece>> DSPPWormBody;
+	std::deque<std::pair<unsigned int, unsigned int>> move_command;
+	int piece_width = 0;
+	int piece_height = 0;
+
 public:
 	Worm(const int& width, const int& height);
 	~Worm();
-
+	void move();
 	void add_size();
 	void draw(ALLEGRO_COLOR * color);
+	void add_move_command(const unsigned int& command);
+	bool is_collided_screen_boundaries(const Object const * screen_boundaries);
+	bool is_collided_power_up(const Object const * powerup);
 };
 

@@ -2,10 +2,10 @@
 
 Object::Object(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name)
 {
-	this->top_left_x = std::move(top_left_x);
-	this->top_left_y = std::move(top_left_y);
-	this->width = std::move(width);
-	this->height = std::move(height);
+	this->top_left_x = top_left_x;
+	this->top_left_y = top_left_y;
+	this->width = width;
+	this->height = height;
 	this->name = name;
 }
 

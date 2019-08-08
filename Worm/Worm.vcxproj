@@ -143,6 +143,7 @@
     <ClCompile Include="ATimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="Validate.cpp" />
     <ClCompile Include="Worm.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="AFont.h" />
     <ClInclude Include="ATimer.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Piece.h" />
     <ClInclude Include="Powerup.h" />
     <ClInclude Include="Validate.h" />
     <ClInclude Include="Worm.h" />

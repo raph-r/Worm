@@ -25,7 +25,7 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives");
 
 	// Initialize the object of Allegro that has encapsulation
-	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 60);
+	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 7);
 	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(SCREEN_WIDTH, SCREEN_HEIGHT);
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
 	ALLEGRO_FONT * font = al_create_builtin_font();
@@ -71,26 +71,32 @@ int main(int argn, char** argv)
 				{
 					continue_to_play = false;
 				}
-				if (key[ALLEGRO_KEY_C])
-				{
-					powerup.change_location();
-				}
 				if (key[ALLEGRO_KEY_UP])
 				{
-					// TODO
+					worm.add_move_command(ALLEGRO_KEY_UP);
 				}
 				if (key[ALLEGRO_KEY_DOWN])
 				{
-					// TODO
+					worm.add_move_command(ALLEGRO_KEY_DOWN);
 				}
 				if (key[ALLEGRO_KEY_LEFT])
 				{
-					// TODO
+					worm.add_move_command(ALLEGRO_KEY_LEFT);
 				}
 				if (key[ALLEGRO_KEY_RIGHT])
 				{
-					// TODO
+					worm.add_move_command(ALLEGRO_KEY_RIGHT);
 				}
+				continue_to_play = !worm.is_collided_screen_boundaries(&OScreenBoundaries);
+				worm.move();
+				if (worm.is_collided_power_up(&powerup))
+				{
+					powerup.change_location();
+					worm.add_size();
+				}
+				
+				//Move worm
+				
 				// Reset array of keys
 				for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
 				{
@@ -110,13 +116,13 @@ int main(int argn, char** argv)
 			default:
 				break;
 		}
-
 		if (draw && al_is_event_queue_empty(UPAEventQueue->getEventQueue()))
 		{
 			draw = false;
 			al_clear_to_color(ACBlack);
 
 			// draw Screen boundaries
+			
 			al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
 			worm.draw(&ACWhite);
 			powerup.draw(&ACWhite);
