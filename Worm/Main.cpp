@@ -75,24 +75,30 @@ int main(int argn, char** argv)
 				{
 					continue_to_play = !worm.is_collided_screen_boundaries(&OScreenBoundaries);
 				}
+
 				if (key[ALLEGRO_KEY_UP])
 				{
+					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_UP);
 					worm.add_move_command(ALLEGRO_KEY_UP);
 				}
-				if (key[ALLEGRO_KEY_DOWN])
+				else if (key[ALLEGRO_KEY_DOWN])
 				{
+					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_DOWN);
 					worm.add_move_command(ALLEGRO_KEY_DOWN);
 				}
-				if (key[ALLEGRO_KEY_LEFT])
+				else if (key[ALLEGRO_KEY_LEFT])
 				{
+					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_LEFT);
 					worm.add_move_command(ALLEGRO_KEY_LEFT);
 				}
-				if (key[ALLEGRO_KEY_RIGHT])
+				else if (key[ALLEGRO_KEY_RIGHT])
 				{
+					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_RIGHT);
 					worm.add_move_command(ALLEGRO_KEY_RIGHT);
 				}
+
 				worm.move();
-				if (worm.is_collided_power_up(&powerup))
+				if (worm.first_piece_is_overlapped(&powerup))
 				{
 					powerup.change_location();
 					worm.add_size();

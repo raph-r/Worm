@@ -12,7 +12,7 @@ private:
 	std::deque<std::pair<unsigned int, unsigned int>> move_command;
 	int piece_width = 0;
 	int piece_height = 0;
-
+	
 public:
 	Worm(const int& width, const int& height);
 	~Worm();
@@ -20,7 +20,8 @@ public:
 	void add_size();
 	void draw(ALLEGRO_COLOR * color);
 	void add_move_command(const unsigned int& command);
+	bool is_overlap(const unsigned int & command);
 	bool is_collided_screen_boundaries(const Object const * screen_boundaries);
-	bool is_collided_power_up(const Object const * powerup);
+	bool first_piece_is_overlapped(const Object const * powerup);
 };
 

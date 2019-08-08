@@ -113,16 +113,42 @@ bool Worm::is_collided_screen_boundaries(const Object const * screen_boundaries)
 	return false;
 }
 
-bool Worm::is_collided_power_up(const Object const * powerup)
+bool Worm::first_piece_is_overlapped(const Object const * object)
 {
-	auto first_part = this->DSPPWormBody.front();
+	return this->DSPPWormBody.front()->is_overlapped(object);
+}
 
-	if (first_part->collision_line_left() == powerup->collision_line_left()
-		&& first_part->collision_line_top() == powerup->collision_line_top()
-		&& first_part->collision_line_right() == powerup->collision_line_right()
-		&& first_part->collision_line_botton() == powerup->collision_line_botton())
+bool Worm::is_overlap(const unsigned int & command)
+{
+	if (Util::is_horizontal(this->DSPPWormBody.front()->get_direction()) != Util::is_horizontal(command))
 	{
-		return true;
+		Object piece((*this->DSPPWormBody.front()));
+
+		switch (command)
+		{
+		case ALLEGRO_KEY_UP:
+			piece.add_top_left_y(this->piece_height * -1);
+			break;
+		case ALLEGRO_KEY_DOWN:
+			piece.add_top_left_y(this->piece_height);
+			break;
+		case ALLEGRO_KEY_LEFT:
+			piece.add_top_left_x(this->piece_width * -1);
+			break;
+		case ALLEGRO_KEY_RIGHT:
+			piece.add_top_left_x(this->piece_width);
+			break;
+		default:
+			break;
+		}
+
+		for (auto& piece_worm : this->DSPPWormBody)
+		{
+			if (piece_worm->is_overlapped(dynamic_cast<Object*>(&piece)))
+			{
+				return true;
+			}
+		}
 	}
 	return false;
 }
