@@ -103,10 +103,10 @@ void Worm::add_move_command(const unsigned int & command)
 bool Worm::is_collided_screen_boundaries(const Object const * screen_boundaries)
 {
 	auto first_part = this->DSPPWormBody.front();
-	if (first_part->collision_line_left() <= screen_boundaries->collision_line_left()
-		|| first_part->collision_line_right() >= screen_boundaries->collision_line_right()
-		|| first_part->collision_line_top() <= screen_boundaries->collision_line_top()
-		|| first_part->collision_line_botton() >= screen_boundaries->collision_line_botton())
+	if (first_part->collision_line_left() < screen_boundaries->collision_line_left()
+		|| first_part->collision_line_right() > screen_boundaries->collision_line_right()
+		|| first_part->collision_line_top() < screen_boundaries->collision_line_top()
+		|| first_part->collision_line_botton() > screen_boundaries->collision_line_botton())
 	{
 		return true;
 	}
