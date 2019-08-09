@@ -121,6 +121,18 @@ bool Worm::is_collided_screen_boundaries(const Object const * screen_boundaries)
 	return false;
 }
 
+bool Worm::is_overlapping_some_piece(const Object const * object)
+{
+	for (auto& piece_worm : this->DSPPWormBody)
+	{
+		if (piece_worm->is_overlapped(object))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Worm::first_piece_is_overlapping(const Object const * object)
 {
 	return this->DSPPWormBody.front()->is_overlapped(object);
@@ -148,12 +160,5 @@ bool Worm::first_piece_is_overlapping_itself()
 		break;
 	}
 
-	for (auto& piece_worm : this->DSPPWormBody)
-	{
-		if (piece_worm->is_overlapped(dynamic_cast<Object*>(&piece)))
-		{
-			return true;
-		}
-	}
-	return false;
+	return this->is_overlapping_some_piece(&piece);
 }

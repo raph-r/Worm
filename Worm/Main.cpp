@@ -122,7 +122,7 @@ int main(int argn, char** argv)
 					// If Worm overlap powerup, add worm size
 					if (UPWorm->first_piece_is_overlapping(&powerup))
 					{
-						powerup.change_location();
+						while(UPWorm->is_overlapping_some_piece(&powerup)) powerup.change_location();
 						UPWorm->add_size();
 						score += 20;
 					}
