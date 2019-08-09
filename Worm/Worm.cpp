@@ -20,7 +20,7 @@ Worm::Worm(const int& width, const int& height)
 
 Worm::~Worm(){}
 
-void Worm::move()
+bool Worm::move()
 {
 	if (this->move_command.size() > 0)
 	{
@@ -43,10 +43,18 @@ void Worm::move()
 			this->move_command.pop_front();
 		}
 	}
+
+	if (this->first_piece_is_overlapping_itself())
+	{
+		return false;
+	}
+
 	for (auto &part : this->DSPPWormBody)
 	{
 		part->move();
 	}
+
+	return true;
 }
 
 void Worm::add_size()
@@ -113,41 +121,38 @@ bool Worm::is_collided_screen_boundaries(const Object const * screen_boundaries)
 	return false;
 }
 
-bool Worm::first_piece_is_overlapped(const Object const * object)
+bool Worm::first_piece_is_overlapping(const Object const * object)
 {
 	return this->DSPPWormBody.front()->is_overlapped(object);
 }
 
-bool Worm::is_overlap(const unsigned int & command)
+bool Worm::first_piece_is_overlapping_itself()
 {
-	if (Util::is_horizontal(this->DSPPWormBody.front()->get_direction()) != Util::is_horizontal(command))
+	Object piece((*this->DSPPWormBody.front()));
+
+	switch (this->DSPPWormBody.front()->get_direction())
 	{
-		Object piece((*this->DSPPWormBody.front()));
+	case ALLEGRO_KEY_UP:
+		piece.add_top_left_y(this->piece_height * -1);
+		break;
+	case ALLEGRO_KEY_DOWN:
+		piece.add_top_left_y(this->piece_height);
+		break;
+	case ALLEGRO_KEY_LEFT:
+		piece.add_top_left_x(this->piece_width * -1);
+		break;
+	case ALLEGRO_KEY_RIGHT:
+		piece.add_top_left_x(this->piece_width);
+		break;
+	default:
+		break;
+	}
 
-		switch (command)
+	for (auto& piece_worm : this->DSPPWormBody)
+	{
+		if (piece_worm->is_overlapped(dynamic_cast<Object*>(&piece)))
 		{
-		case ALLEGRO_KEY_UP:
-			piece.add_top_left_y(this->piece_height * -1);
-			break;
-		case ALLEGRO_KEY_DOWN:
-			piece.add_top_left_y(this->piece_height);
-			break;
-		case ALLEGRO_KEY_LEFT:
-			piece.add_top_left_x(this->piece_width * -1);
-			break;
-		case ALLEGRO_KEY_RIGHT:
-			piece.add_top_left_x(this->piece_width);
-			break;
-		default:
-			break;
-		}
-
-		for (auto& piece_worm : this->DSPPWormBody)
-		{
-			if (piece_worm->is_overlapped(dynamic_cast<Object*>(&piece)))
-			{
-				return true;
-			}
+			return true;
 		}
 	}
 	return false;

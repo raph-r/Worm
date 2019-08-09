@@ -16,12 +16,12 @@ private:
 public:
 	Worm(const int& width, const int& height);
 	~Worm();
-	void move();
+	bool move();
 	void add_size();
 	void draw(ALLEGRO_COLOR * color);
 	void add_move_command(const unsigned int& command);
-	bool is_overlap(const unsigned int & command);
+	bool first_piece_is_overlapping_itself();
 	bool is_collided_screen_boundaries(const Object const * screen_boundaries);
-	bool first_piece_is_overlapped(const Object const * powerup);
+	bool first_piece_is_overlapping(const Object const * powerup);
 };
 

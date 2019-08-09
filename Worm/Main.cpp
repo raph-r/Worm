@@ -25,7 +25,7 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives");
 
 	// Initialize the object of Allegro that has encapsulation
-	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 7);
+	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
 	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(SCREEN_WIDTH, SCREEN_HEIGHT);
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
 	ALLEGRO_FONT * font = al_create_builtin_font();
@@ -66,46 +66,34 @@ int main(int argn, char** argv)
 		switch (event.type)
 		{
 			case ALLEGRO_EVENT_TIMER:
-				//Exit game
-				if (key[ALLEGRO_KEY_ESCAPE])
-				{
-					continue_to_play = false;
-				}
-				else
-				{
-					continue_to_play = !worm.is_collided_screen_boundaries(&OScreenBoundaries);
-				}
-
 				if (key[ALLEGRO_KEY_UP])
 				{
-					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_UP);
 					worm.add_move_command(ALLEGRO_KEY_UP);
 				}
 				else if (key[ALLEGRO_KEY_DOWN])
 				{
-					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_DOWN);
 					worm.add_move_command(ALLEGRO_KEY_DOWN);
 				}
 				else if (key[ALLEGRO_KEY_LEFT])
 				{
-					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_LEFT);
 					worm.add_move_command(ALLEGRO_KEY_LEFT);
 				}
 				else if (key[ALLEGRO_KEY_RIGHT])
 				{
-					continue_to_play = !worm.is_overlap(ALLEGRO_KEY_RIGHT);
 					worm.add_move_command(ALLEGRO_KEY_RIGHT);
 				}
 
-				worm.move();
-				if (worm.first_piece_is_overlapped(&powerup))
+				if (worm.first_piece_is_overlapping(&powerup))
 				{
 					powerup.change_location();
 					worm.add_size();
 				}
-				
-				//Move worm
-				
+
+				if (key[ALLEGRO_KEY_ESCAPE] || !worm.move() || worm.is_collided_screen_boundaries(&OScreenBoundaries))
+				{
+					continue_to_play = false;
+				}
+
 				// Reset array of keys
 				for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
 				{
