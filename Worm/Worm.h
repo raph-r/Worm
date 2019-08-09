@@ -16,7 +16,7 @@ private:
 public:
 	Worm(const int& width, const int& height);
 	~Worm();
-	bool move();
+	bool try_move();
 	void add_size();
 	void draw(ALLEGRO_COLOR * color);
 	void add_move_command(const unsigned int& command);

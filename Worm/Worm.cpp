@@ -20,7 +20,7 @@ Worm::Worm(const int& width, const int& height)
 
 Worm::~Worm(){}
 
-bool Worm::move()
+bool Worm::try_move()
 {
 	if (this->move_command.size() > 0)
 	{

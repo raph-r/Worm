@@ -13,6 +13,12 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
+void draw_starter_menu(const ALLEGRO_COLOR& ACWhite, const ALLEGRO_FONT * font)
+{
+	char msg[] = "Press Enter to Play";
+	al_draw_textf(font, ACWhite, (SCREEN_WIDTH / 2) - (al_get_text_width(font, msg) / 2), (SCREEN_HEIGHT / 2) - al_get_font_line_height(font) / 2, 0, msg);
+}
+
 int main(int argn, char** argv)
 {
 	bool continue_to_play = true;
@@ -56,7 +62,7 @@ int main(int argn, char** argv)
 	unsigned char key[ALLEGRO_KEY_MAX];
 	memset(key, 0, sizeof(key));
 
-	bool starter_menu = true;
+	unsigned int scene = 1;
 
 	UPATimer->startTimer();
 	while (continue_to_play)
@@ -66,32 +72,43 @@ int main(int argn, char** argv)
 		switch (event.type)
 		{
 			case ALLEGRO_EVENT_TIMER:
-				if (key[ALLEGRO_KEY_UP])
+				// Starter screen
+				if (scene == 1 && key[ALLEGRO_KEY_ENTER])
 				{
-					worm.add_move_command(ALLEGRO_KEY_UP);
+					scene++;
 				}
-				else if (key[ALLEGRO_KEY_DOWN])
+				else if (scene == 2)
 				{
-					worm.add_move_command(ALLEGRO_KEY_DOWN);
-				}
-				else if (key[ALLEGRO_KEY_LEFT])
-				{
-					worm.add_move_command(ALLEGRO_KEY_LEFT);
-				}
-				else if (key[ALLEGRO_KEY_RIGHT])
-				{
-					worm.add_move_command(ALLEGRO_KEY_RIGHT);
-				}
+					//Test the key pressed
+					if (key[ALLEGRO_KEY_UP])
+					{
+						worm.add_move_command(ALLEGRO_KEY_UP);
+					}
+					else if (key[ALLEGRO_KEY_DOWN])
+					{
+						worm.add_move_command(ALLEGRO_KEY_DOWN);
+					}
+					else if (key[ALLEGRO_KEY_LEFT])
+					{
+						worm.add_move_command(ALLEGRO_KEY_LEFT);
+					}
+					else if (key[ALLEGRO_KEY_RIGHT])
+					{
+						worm.add_move_command(ALLEGRO_KEY_RIGHT);
+					}
 
-				if (worm.first_piece_is_overlapping(&powerup))
-				{
-					powerup.change_location();
-					worm.add_size();
-				}
+					// If Worm overlap powerup, add worm size
+					if (worm.first_piece_is_overlapping(&powerup))
+					{
+						powerup.change_location();
+						worm.add_size();
+					}
 
-				if (key[ALLEGRO_KEY_ESCAPE] || !worm.move() || worm.is_collided_screen_boundaries(&OScreenBoundaries))
-				{
-					continue_to_play = false;
+					// Exit game
+					if (key[ALLEGRO_KEY_ESCAPE] || !worm.try_move() || worm.is_collided_screen_boundaries(&OScreenBoundaries))
+					{
+						continue_to_play = false;
+					}
 				}
 
 				// Reset array of keys
@@ -113,17 +130,24 @@ int main(int argn, char** argv)
 			default:
 				break;
 		}
+
 		if (draw && al_is_event_queue_empty(UPAEventQueue->getEventQueue()))
 		{
 			draw = false;
 			al_clear_to_color(ACBlack);
 
-			// draw Screen boundaries
-			
-			al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
-			worm.draw(&ACWhite);
-			powerup.draw(&ACWhite);
-
+			if(scene == 1)
+			{
+				// draw starter screen
+				draw_starter_menu(ACWhite, font);
+			}
+			else
+			{
+				// draw Screen boundaries
+				al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
+				worm.draw(&ACWhite);
+				powerup.draw(&ACWhite);
+			}
 			al_flip_display();
 		}
 	}
