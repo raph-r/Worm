@@ -26,6 +26,12 @@ void draw_score(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font, const uns
 	al_draw_textf(font, color, (SCREEN_WIDTH / 2), 25 - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, "%u", *score);
 }
 
+void draw_endgame(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font, const unsigned int * score)
+{
+	al_draw_textf(font, color, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) - al_get_font_line_height(font), ALLEGRO_ALIGN_CENTER, "Your score: %u", *score);
+	al_draw_textf(font, color, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
+}
+
 int main(int argn, char** argv)
 {
 	bool continue_to_play = true;
@@ -62,7 +68,7 @@ int main(int argn, char** argv)
 	Powerup powerup(50, 50, 10, 10, "Power up");
 	
 	// Worm
-	Worm worm(10, 10);
+	std::unique_ptr<Worm> UPWorm;
 
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -85,44 +91,51 @@ int main(int argn, char** argv)
 		switch (event.type)
 		{
 			case ALLEGRO_EVENT_TIMER:
-				// Starter screen
-				if (scene == 1 && key[ALLEGRO_KEY_ENTER])
+				// Starter Scene and End Game Scene will return to game play, if player press Enter
+				if ((scene == 1 || scene == 3) && key[ALLEGRO_KEY_ENTER])
 				{
-					scene++;
+					UPWorm = std::make_unique<Worm>(10, 10);
+					powerup.change_location();
+					scene = 2;
+					score = 0;
 				}
 				else if (scene == 2)
 				{
 					//Test the key pressed
 					if (key[ALLEGRO_KEY_UP])
 					{
-						worm.add_move_command(ALLEGRO_KEY_UP);
+						UPWorm->add_move_command(ALLEGRO_KEY_UP);
 					}
 					else if (key[ALLEGRO_KEY_DOWN])
 					{
-						worm.add_move_command(ALLEGRO_KEY_DOWN);
+						UPWorm->add_move_command(ALLEGRO_KEY_DOWN);
 					}
 					else if (key[ALLEGRO_KEY_LEFT])
 					{
-						worm.add_move_command(ALLEGRO_KEY_LEFT);
+						UPWorm->add_move_command(ALLEGRO_KEY_LEFT);
 					}
 					else if (key[ALLEGRO_KEY_RIGHT])
 					{
-						worm.add_move_command(ALLEGRO_KEY_RIGHT);
+						UPWorm->add_move_command(ALLEGRO_KEY_RIGHT);
 					}
 
 					// If Worm overlap powerup, add worm size
-					if (worm.first_piece_is_overlapping(&powerup))
+					if (UPWorm->first_piece_is_overlapping(&powerup))
 					{
 						powerup.change_location();
-						worm.add_size();
+						UPWorm->add_size();
 						score += 20;
 					}
 
-					// Exit game
-					if (key[ALLEGRO_KEY_ESCAPE] || !worm.try_move() || worm.is_collided_screen_boundaries(&OScreenBoundaries))
+					// Move to End Game Scene
+					if (!UPWorm->try_move() || UPWorm->is_collided_screen_boundaries(&OScreenBoundaries))
 					{
-						continue_to_play = false;
+						scene++;
 					}
+				}
+				else if (key[ALLEGRO_KEY_ESCAPE])
+				{
+					continue_to_play = false;
 				}
 
 				// Reset array of keys
@@ -155,13 +168,18 @@ int main(int argn, char** argv)
 				// draw starter screen
 				draw_starter_menu(ACWhite, font);
 			}
-			else
+			else if(scene == 2)
 			{
 				// draw Screen boundaries
 				al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
-				worm.draw(&ACWhite);
+				UPWorm->draw(&ACWhite);
 				powerup.draw(&ACWhite);
 				draw_score(ACWhite, font, &score);
+			}
+			else
+			{
+				// draw starter screen
+				draw_endgame(ACWhite, font, &score);
 			}
 			al_flip_display();
 		}

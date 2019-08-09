@@ -3,7 +3,6 @@
 Powerup::Powerup(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name) : Object(top_left_x, top_left_y, width, height, name)
 {
 	srand(time(NULL));
-	this->change_location();
 }
 
 Powerup::~Powerup(){}
