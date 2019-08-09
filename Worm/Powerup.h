@@ -3,6 +3,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_primitives.h"
 #include <cstdlib>
+#include <time.h>
 
 class Powerup : public Object
 {
