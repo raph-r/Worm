@@ -4,6 +4,7 @@
 #include "Validate.h"
 #include "Object.h"
 #include "allegro5/allegro_font.h"
+#include "allegro5/allegro_ttf.h"
 #include "Powerup.h"
 #include "Worm.h"
 #include <memory>
@@ -13,10 +14,16 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
-void draw_starter_menu(const ALLEGRO_COLOR& ACWhite, const ALLEGRO_FONT * font)
+void draw_starter_menu(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font)
 {
 	char msg[] = "Press Enter to Play";
-	al_draw_textf(font, ACWhite, (SCREEN_WIDTH / 2) - (al_get_text_width(font, msg) / 2), (SCREEN_HEIGHT / 2) - al_get_font_line_height(font) / 2, 0, msg);
+	al_draw_textf(font, color, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, msg);
+}
+
+void draw_score(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font, const unsigned int * score)
+{
+	
+	al_draw_textf(font, color, (SCREEN_WIDTH / 2), 25 - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, "%u", *score);
 }
 
 int main(int argn, char** argv)
@@ -29,12 +36,14 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init(), "Allegro");
 	Validate::object_was_initialized(al_install_keyboard(), "Keyboard");
 	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives");
+	Validate::object_was_initialized(al_init_font_addon(), "Font");
+	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF");
 
 	// Initialize the object of Allegro that has encapsulation
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
 	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(SCREEN_WIDTH, SCREEN_HEIGHT);
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
-	ALLEGRO_FONT * font = al_create_builtin_font();
+	ALLEGRO_FONT * font = al_load_ttf_font("Oswald-Medium.ttf", 24, ALLEGRO_TTF_NO_KERNING);
 	Validate::object_was_initialized(font, "Font");
 
 	// add source to event queue
@@ -47,7 +56,7 @@ int main(int argn, char** argv)
 	ALLEGRO_COLOR ACWhite = al_map_rgba_f(1, 1, 1, 1);
 
 	// Screen Bounderies
-	Object OScreenBoundaries(10, 10, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "Screen Boundaries");
+	Object OScreenBoundaries(10, 50, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 60, "Screen Boundaries");
 
 	// Power up
 	Powerup powerup(50, 50, 10, 10, "Power up");
@@ -62,6 +71,10 @@ int main(int argn, char** argv)
 	unsigned char key[ALLEGRO_KEY_MAX];
 	memset(key, 0, sizeof(key));
 
+	//player score
+	unsigned int score = 0;
+
+	//current scene of game
 	unsigned int scene = 1;
 
 	UPATimer->startTimer();
@@ -102,6 +115,7 @@ int main(int argn, char** argv)
 					{
 						powerup.change_location();
 						worm.add_size();
+						score += 20;
 					}
 
 					// Exit game
@@ -147,10 +161,11 @@ int main(int argn, char** argv)
 				al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
 				worm.draw(&ACWhite);
 				powerup.draw(&ACWhite);
+				draw_score(ACWhite, font, &score);
 			}
 			al_flip_display();
 		}
 	}
-	al_destroy_font(font);
+	//al_destroy_font(font);
 	return 0;
 }

@@ -84,4 +84,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Oswald-Medium.ttf">
+      <Filter>Arquivos de Recurso</Filter>
+    </Font>
+  </ItemGroup>
 </Project>
