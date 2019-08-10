@@ -145,6 +145,7 @@
     <ClCompile Include="AEventQueue.cpp" />
     <ClCompile Include="ATTFFont.cpp" />
     <ClCompile Include="ATimer.cpp" />
+    <ClCompile Include="Constant.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Piece.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="AEventQueue.h" />
     <ClInclude Include="ATTFFont.h" />
     <ClInclude Include="ATimer.h" />
+    <ClInclude Include="Constant.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Powerup.h" />
