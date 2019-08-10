@@ -152,7 +152,7 @@
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Validate.cpp" />
-    <ClCompile Include="Worm.cpp" />
+    <ClCompile Include="Snake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADisplay.h" />
@@ -165,7 +165,7 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Validate.h" />
-    <ClInclude Include="Worm.h" />
+    <ClInclude Include="Snake.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Oswald-Medium.ttf" />

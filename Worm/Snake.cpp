@@ -1,31 +1,29 @@
-#include "Worm.h"
+#include "Snake.h"
 
-Worm::Worm(const int& width, const int& height)
+Snake::Snake()
 {
-	this->piece_width = std::move(width);
-	this->piece_height = std::move(height);
 	for (int i = 1; i <= 5; i++)
 	{
 		this->DSPPWormBody.push_back(
 			std::make_shared<Piece>(
-				320 - (this->piece_width * i),
-				240 - this->piece_height,
-				this->piece_width,
-				this->piece_height,
+				320 - (Constant::PIECE_WIDTH * i),
+				240 - Constant::PIECE_HEIGHT,
+				Constant::PIECE_WIDTH,
+				Constant::PIECE_HEIGHT,
 				""
 			)
 		);
 	}
 }
 
-Worm::~Worm(){}
+Snake::~Snake(){}
 
-bool Worm::try_move()
+bool Snake::try_move()
 {
-	if (this->move_command.size() > 0)
+	if (this->DPUiUiQueueOfDirections.size() > 0)
 	{
 		int qtd_to_remove = 0;
-		for (auto &command : this->move_command)
+		for (auto &command : this->DPUiUiQueueOfDirections)
 		{
 			if (command.first < this->DSPPWormBody.size())
 			{
@@ -40,7 +38,7 @@ bool Worm::try_move()
 
 		for (int i = 0; i < qtd_to_remove; i++)
 		{
-			this->move_command.pop_front();
+			this->DPUiUiQueueOfDirections.pop_front();
 		}
 	}
 
@@ -57,7 +55,7 @@ bool Worm::try_move()
 	return true;
 }
 
-void Worm::add_size()
+void Snake::add_size()
 {
 	this->DSPPWormBody.push_back(
 		std::make_shared<Piece>(
@@ -68,23 +66,23 @@ void Worm::add_size()
 	switch (this->DSPPWormBody.back()->get_direction())
 	{
 	case ALLEGRO_KEY_UP:
-		this->DSPPWormBody.back()->add_top_left_y(this->piece_height);
+		this->DSPPWormBody.back()->add_top_left_y(Constant::PIECE_HEIGHT);
 		break;
 	case ALLEGRO_KEY_DOWN:
-		this->DSPPWormBody.back()->add_top_left_y(this->piece_height * -1);
+		this->DSPPWormBody.back()->add_top_left_y(Constant::PIECE_HEIGHT * -1);
 		break;
 	case ALLEGRO_KEY_LEFT:
-		this->DSPPWormBody.back()->add_top_left_x(this->piece_width);
+		this->DSPPWormBody.back()->add_top_left_x(Constant::PIECE_WIDTH);
 		break;
 	case ALLEGRO_KEY_RIGHT:
-		this->DSPPWormBody.back()->add_top_left_x(this->piece_width * -1);
+		this->DSPPWormBody.back()->add_top_left_x(Constant::PIECE_WIDTH * -1);
 		break;
 	default:
 		break;
 	}
 }
 
-void Worm::draw(ALLEGRO_COLOR * color)
+void Snake::draw(ALLEGRO_COLOR * color)
 {
 	for (auto &part : this->DSPPWormBody)
 	{
@@ -92,23 +90,23 @@ void Worm::draw(ALLEGRO_COLOR * color)
 	}
 }
 
-void Worm::add_move_command(const unsigned int & command)
+void Snake::add_direction_to_queue_of_directions(const unsigned int & command)
 {
-	if (this->move_command.size() == 0)
+	if (this->DPUiUiQueueOfDirections.size() == 0)
 	{
-		this->move_command.push_back(
+		this->DPUiUiQueueOfDirections.push_back(
 			std::make_pair(0, command)
 		);
 	}
-	else if (this->move_command.back().second != command)
+	else if (this->DPUiUiQueueOfDirections.back().second != command)
 	{
-		this->move_command.push_back(
+		this->DPUiUiQueueOfDirections.push_back(
 			std::make_pair(0, command)
 		);
 	}
 }
 
-bool Worm::is_collided_screen_boundaries(const Square const * screen_boundaries)
+bool Snake::is_collided_screen_boundaries(const Square const * screen_boundaries)
 {
 	auto first_part = this->DSPPWormBody.front();
 	if (first_part->get_line_left() < screen_boundaries->get_line_left()
@@ -121,7 +119,7 @@ bool Worm::is_collided_screen_boundaries(const Square const * screen_boundaries)
 	return false;
 }
 
-bool Worm::is_overlapping_some_piece(const Square const * object)
+bool Snake::is_overlapping_some_piece(const Square const * object)
 {
 	for (auto& piece_worm : this->DSPPWormBody)
 	{
@@ -133,28 +131,28 @@ bool Worm::is_overlapping_some_piece(const Square const * object)
 	return false;
 }
 
-bool Worm::first_piece_is_overlapping(const Square const * object)
+bool Snake::first_piece_is_overlapping(const Square const * object)
 {
 	return this->DSPPWormBody.front()->is_overlapped(object);
 }
 
-bool Worm::first_piece_is_overlapping_itself()
+bool Snake::first_piece_is_overlapping_itself()
 {
 	Square piece((*this->DSPPWormBody.front()));
 
 	switch (this->DSPPWormBody.front()->get_direction())
 	{
 	case ALLEGRO_KEY_UP:
-		piece.add_top_left_y(this->piece_height * -1);
+		piece.add_top_left_y(Constant::PIECE_HEIGHT * -1);
 		break;
 	case ALLEGRO_KEY_DOWN:
-		piece.add_top_left_y(this->piece_height);
+		piece.add_top_left_y(Constant::PIECE_HEIGHT);
 		break;
 	case ALLEGRO_KEY_LEFT:
-		piece.add_top_left_x(this->piece_width * -1);
+		piece.add_top_left_x(Constant::PIECE_WIDTH * -1);
 		break;
 	case ALLEGRO_KEY_RIGHT:
-		piece.add_top_left_x(this->piece_width);
+		piece.add_top_left_x(Constant::PIECE_WIDTH);
 		break;
 	default:
 		break;

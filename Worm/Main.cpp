@@ -4,7 +4,7 @@
 #include "ATTFFont.h"
 #include "Square.h"
 #include "Food.h"
-#include "Worm.h"
+#include "Snake.h"
 #include <memory>
 
 #define KEY_SEEN 1
@@ -82,7 +82,7 @@ int main(int argn, char** argv)
 	Food powerup;
 	
 	// Worm
-	std::unique_ptr<Worm> UPWorm;
+	std::unique_ptr<Snake> UPWorm;
 
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -108,7 +108,7 @@ int main(int argn, char** argv)
 				// Starter Scene and End Game Scene will return to game play, if player press Enter
 				if ((scene == 1 || scene == 3) && key[ALLEGRO_KEY_ENTER])
 				{
-					UPWorm = std::make_unique<Worm>(10, 10);
+					UPWorm = std::make_unique<Snake>(10, 10);
 					powerup.change_location();
 					scene = 2;
 					score = 0;
@@ -118,19 +118,19 @@ int main(int argn, char** argv)
 					//Test the key pressed
 					if (key[ALLEGRO_KEY_UP])
 					{
-						UPWorm->add_move_command(ALLEGRO_KEY_UP);
+						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_UP);
 					}
 					else if (key[ALLEGRO_KEY_DOWN])
 					{
-						UPWorm->add_move_command(ALLEGRO_KEY_DOWN);
+						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_DOWN);
 					}
 					else if (key[ALLEGRO_KEY_LEFT])
 					{
-						UPWorm->add_move_command(ALLEGRO_KEY_LEFT);
+						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_LEFT);
 					}
 					else if (key[ALLEGRO_KEY_RIGHT])
 					{
-						UPWorm->add_move_command(ALLEGRO_KEY_RIGHT);
+						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_RIGHT);
 					}
 
 					// If Worm overlap powerup, add worm size
