@@ -82,7 +82,7 @@ int main(int argn, char** argv)
 	Food powerup;
 	
 	// Worm
-	std::unique_ptr<Snake> UPWorm;
+	std::unique_ptr<Snake> UPSnake;
 
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -108,7 +108,7 @@ int main(int argn, char** argv)
 				// Starter Scene and End Game Scene will return to game play, if player press Enter
 				if ((scene == 1 || scene == 3) && key[ALLEGRO_KEY_ENTER])
 				{
-					UPWorm = std::make_unique<Snake>(10, 10);
+					UPSnake = std::make_unique<Snake>();
 					powerup.change_location();
 					scene = 2;
 					score = 0;
@@ -118,31 +118,31 @@ int main(int argn, char** argv)
 					//Test the key pressed
 					if (key[ALLEGRO_KEY_UP])
 					{
-						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_UP);
+						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_UP);
 					}
 					else if (key[ALLEGRO_KEY_DOWN])
 					{
-						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_DOWN);
+						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_DOWN);
 					}
 					else if (key[ALLEGRO_KEY_LEFT])
 					{
-						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_LEFT);
+						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_LEFT);
 					}
 					else if (key[ALLEGRO_KEY_RIGHT])
 					{
-						UPWorm->add_direction_to_queue_of_directions(ALLEGRO_KEY_RIGHT);
+						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_RIGHT);
 					}
 
 					// If Worm overlap powerup, add worm size
-					if (UPWorm->first_piece_is_overlapping(&powerup))
+					if (UPSnake->first_piece_is_overlapping(&powerup))
 					{
-						while(UPWorm->is_overlapping_some_piece(&powerup)) powerup.change_location();
-						UPWorm->add_size();
+						while(UPSnake->is_overlapping_some_piece(&powerup)) powerup.change_location();
+						UPSnake->add_size();
 						score += 20;
 					}
 
 					// Move to End Game Scene
-					if (!UPWorm->try_move() || UPWorm->is_collided_screen_boundaries(&OScreenBoundaries))
+					if (!UPSnake->try_move() || UPSnake->is_collided_screen_boundaries(&OScreenBoundaries))
 					{
 						scene++;
 					}
@@ -188,7 +188,7 @@ int main(int argn, char** argv)
 			{
 				// draw Screen boundaries
 				al_draw_rectangle(OScreenBoundaries.get_line_left(), OScreenBoundaries.get_line_top(), OScreenBoundaries.get_line_right(), OScreenBoundaries.get_line_botton(), ACWhite, 1);
-				UPWorm->draw(&ACWhite);
+				UPSnake->draw(&ACWhite);
 				powerup.draw(&ACWhite);
 				draw_score(ACWhite, SPFont_24, &score);
 			}
