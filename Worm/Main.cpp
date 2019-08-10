@@ -56,7 +56,7 @@ int main(int argn, char** argv)
 
 	// Initialize the object of Allegro that had been encapsulated
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
-	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(Constant::SCREEN_WIDTH, Constant::SCREEN_HEIGHT);
+	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>();
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
 	std::shared_ptr<ATTFFont> SPFont_24 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 24);
 

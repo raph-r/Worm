@@ -1,5 +1,6 @@
 #pragma once
 #include "Validate.h"
+#include "Constant.h"
 #include "allegro5/allegro5.h"
 
 /**
@@ -17,15 +18,11 @@ class ADisplay
 		/**
 		 * <EN>
 		 * Class constructor. Create a screen to game
-		 * @param[in] width - Screen
-		 * @param[in] height - Screen
 		 *
 		 * <PT-Br>
 		 * Construtor da classe. Cria uma tela para o jogo
-		 * @param[in] width - tela
-		 * @param[in] height - tela
 		*/
-		ADisplay(const int& width, const int& height);
+		ADisplay();
 
 		/**
 		 * <EN>
