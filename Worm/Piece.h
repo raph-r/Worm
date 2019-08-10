@@ -1,8 +1,8 @@
 #pragma once
-#include "Object.h"
+#include "Square.h"
 #include "Util.h"
 
-class Piece : public Object
+class Piece : public Square
 {
 	private:
 		unsigned int direction = ALLEGRO_KEY_RIGHT;

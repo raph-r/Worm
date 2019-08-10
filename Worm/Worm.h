@@ -21,8 +21,8 @@ public:
 	void draw(ALLEGRO_COLOR * color);
 	void add_move_command(const unsigned int& command);
 	bool first_piece_is_overlapping_itself();
-	bool is_collided_screen_boundaries(const Object const * screen_boundaries);
-	bool is_overlapping_some_piece(const Object const * object);
-	bool first_piece_is_overlapping(const Object const * powerup);
+	bool is_collided_screen_boundaries(const Square const * screen_boundaries);
+	bool is_overlapping_some_piece(const Square const * object);
+	bool first_piece_is_overlapping(const Square const * powerup);
 };
 

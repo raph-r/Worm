@@ -88,7 +88,7 @@ void Worm::draw(ALLEGRO_COLOR * color)
 {
 	for (auto &part : this->DSPPWormBody)
 	{
-		al_draw_filled_rectangle(part->collision_line_left(), part->collision_line_top(), part->collision_line_right(), part->collision_line_botton(), *color);
+		al_draw_filled_rectangle(part->get_line_left(), part->get_line_top(), part->get_line_right(), part->get_line_botton(), *color);
 	}
 }
 
@@ -108,20 +108,20 @@ void Worm::add_move_command(const unsigned int & command)
 	}
 }
 
-bool Worm::is_collided_screen_boundaries(const Object const * screen_boundaries)
+bool Worm::is_collided_screen_boundaries(const Square const * screen_boundaries)
 {
 	auto first_part = this->DSPPWormBody.front();
-	if (first_part->collision_line_left() < screen_boundaries->collision_line_left()
-		|| first_part->collision_line_right() > screen_boundaries->collision_line_right()
-		|| first_part->collision_line_top() < screen_boundaries->collision_line_top()
-		|| first_part->collision_line_botton() > screen_boundaries->collision_line_botton())
+	if (first_part->get_line_left() < screen_boundaries->get_line_left()
+		|| first_part->get_line_right() > screen_boundaries->get_line_right()
+		|| first_part->get_line_top() < screen_boundaries->get_line_top()
+		|| first_part->get_line_botton() > screen_boundaries->get_line_botton())
 	{
 		return true;
 	}
 	return false;
 }
 
-bool Worm::is_overlapping_some_piece(const Object const * object)
+bool Worm::is_overlapping_some_piece(const Square const * object)
 {
 	for (auto& piece_worm : this->DSPPWormBody)
 	{
@@ -133,14 +133,14 @@ bool Worm::is_overlapping_some_piece(const Object const * object)
 	return false;
 }
 
-bool Worm::first_piece_is_overlapping(const Object const * object)
+bool Worm::first_piece_is_overlapping(const Square const * object)
 {
 	return this->DSPPWormBody.front()->is_overlapped(object);
 }
 
 bool Worm::first_piece_is_overlapping_itself()
 {
-	Object piece((*this->DSPPWormBody.front()));
+	Square piece((*this->DSPPWormBody.front()));
 
 	switch (this->DSPPWormBody.front()->get_direction())
 	{

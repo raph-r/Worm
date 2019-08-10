@@ -1,6 +1,6 @@
 #include "Piece.h"
 
-Piece::Piece(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name) : Object(top_left_x, top_left_y, width, height, name){}
+Piece::Piece(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name) : Square(top_left_x, top_left_y, width, height, name){}
 
 Piece::~Piece(){}
 

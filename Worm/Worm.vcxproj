@@ -147,7 +147,7 @@
     <ClCompile Include="ATimer.cpp" />
     <ClCompile Include="Constant.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Square.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Util.cpp" />
@@ -160,7 +160,7 @@
     <ClInclude Include="ATTFFont.h" />
     <ClInclude Include="ATimer.h" />
     <ClInclude Include="Constant.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="Square.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Util.h" />

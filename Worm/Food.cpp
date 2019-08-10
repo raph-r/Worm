@@ -1,6 +1,6 @@
 #include "Food.h"
 
-Food::Food() : Object(1, 1, Constant::POWERUP_WIDTH, Constant::POWERUP_HEIGHT, "Power-up")
+Food::Food() : Square(1, 1, Constant::POWERUP_WIDTH, Constant::POWERUP_HEIGHT, "Power-up")
 {
 	srand(time(NULL));
 }
@@ -9,7 +9,7 @@ Food::~Food(){}
 
 void Food::draw(ALLEGRO_COLOR * color)
 {
-	al_draw_filled_rectangle(this->collision_line_left(), this->collision_line_top(), this->collision_line_right(), this->collision_line_botton(), *color);
+	al_draw_filled_rectangle(this->get_line_left(), this->get_line_top(), this->get_line_right(), this->get_line_botton(), *color);
 }
 
 void Food::change_location()

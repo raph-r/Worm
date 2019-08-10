@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "Square.h"
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_primitives.h"
 #include <cstdlib>
@@ -12,7 +12,7 @@
  * <PT-Br>
  * Comida que a cobra devera comer para crescer
 */
-class Food : public Object
+class Food : public Square
 {
 	public:
 		/**

@@ -2,7 +2,7 @@
 #include "ADisplay.h"
 #include "AEventQueue.h"
 #include "ATTFFont.h"
-#include "Object.h"
+#include "Square.h"
 #include "Food.h"
 #include "Worm.h"
 #include <memory>
@@ -70,7 +70,7 @@ int main(int argn, char** argv)
 	ALLEGRO_COLOR ACWhite = al_map_rgba_f(1, 1, 1, 1);
 
 	// Screen Bounderies
-	Object OScreenBoundaries(
+	Square OScreenBoundaries(
 		Constant::MARGIN_SCREEN_BOUNDARIES,
 		Constant::SCORE_HEIGHT,
 		Constant::SCREEN_WIDTH - (Constant::MARGIN_SCREEN_BOUNDARIES * 2),
@@ -187,7 +187,7 @@ int main(int argn, char** argv)
 			else if(scene == 2)
 			{
 				// draw Screen boundaries
-				al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
+				al_draw_rectangle(OScreenBoundaries.get_line_left(), OScreenBoundaries.get_line_top(), OScreenBoundaries.get_line_right(), OScreenBoundaries.get_line_botton(), ACWhite, 1);
 				UPWorm->draw(&ACWhite);
 				powerup.draw(&ACWhite);
 				draw_score(ACWhite, SPFont_24, &score);
