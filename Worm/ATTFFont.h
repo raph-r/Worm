@@ -30,6 +30,7 @@ class ATTFFont
 		/**
 		 * <EN>
 		 * Class desconstructor
+
 		 * <PT-Br>
 		 * Desconstrutor da classe
 		*/

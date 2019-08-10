@@ -7,7 +7,7 @@
  * <EN>
  * Encapsulate the ALLEGRO_DISPLAY class
  * <PT-Br>
- * Encapsula a classe ALLEGRO_DISPLAY - TTF
+ * Encapsula a classe ALLEGRO_DISPLAY
 */
 class ADisplay
 {
@@ -27,6 +27,7 @@ class ADisplay
 		/**
 		 * <EN>
 		 * Class desconstructor
+
 		 * <PT-Br>
 		 * Desconstrutor da classe
 		*/
