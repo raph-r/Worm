@@ -18,7 +18,10 @@ class Constant
 		static const unsigned int HALF_SCREEN_HEIGHT;
 		static const unsigned int SCORE_HEIGHT;
 		static const unsigned int MARGIN_SCREEN_BOUNDARIES;
-		static const unsigned int ACCELERATION_OF_PIECE;
+
+		static const int ACCELERATION_OF_PIECE;
+		static const int PIECE_WIDTH;
+		static const int PIECE_HEIGHT;
 
 		static const char MSG_TO_PLAY[];
 		static const char MSG_TO_PLAY_AGAIN[];

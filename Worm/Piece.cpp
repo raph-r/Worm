@@ -40,20 +40,20 @@ unsigned int Piece::get_direction()
 
 void Piece::up()
 {
-	this->top_left_y -= this->acceleration;
+	this->top_left_y -= Constant::ACCELERATION_OF_PIECE;
 }
 
 void Piece::left()
 {
-	this->top_left_x -= this->acceleration;
+	this->top_left_x -= Constant::ACCELERATION_OF_PIECE;
 }
 
 void Piece::right()
 {
-	this->top_left_x += this->acceleration;
+	this->top_left_x += Constant::ACCELERATION_OF_PIECE;
 }
 
 void Piece::down()
 {
-	this->top_left_y += this->acceleration;
+	this->top_left_y += Constant::ACCELERATION_OF_PIECE;
 }

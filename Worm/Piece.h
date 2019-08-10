@@ -1,6 +1,7 @@
 #pragma once
 #include "Square.h"
 #include "Util.h"
+#include "Constant.h"
 
 /**
  * <EN>
@@ -13,7 +14,6 @@ class Piece : public Square
 {
 	private:
 		unsigned int direction = ALLEGRO_KEY_RIGHT;
-		unsigned int acceleration = Constant::ACCELERATION_OF_PIECE;
 
 		/**
 		 * <EN>
