@@ -1,10 +1,8 @@
 #include "ATimer.h"
 #include "ADisplay.h"
 #include "AEventQueue.h"
-#include "Validate.h"
+#include "ATTFFont.h"
 #include "Object.h"
-#include "allegro5/allegro_font.h"
-#include "allegro5/allegro_ttf.h"
 #include "Powerup.h"
 #include "Worm.h"
 #include <memory>
@@ -13,44 +11,44 @@
 #define KEY_RELEASED 2
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
+#define HALF_SCREEN_WIDTH 320
+#define HALF_SCREEN_HEIGHT 240
 
-void draw_starter_menu(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font)
+void draw_starter_menu(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font)
 {
 	char msg[] = "Press Enter to Play";
-	al_draw_textf(font, color, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, msg);
+	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT - (al_get_font_line_height(font->getFont()) / 2), ALLEGRO_ALIGN_CENTER, msg);
 }
 
-void draw_score(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font, const unsigned int * score)
+void draw_score(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
 	
-	al_draw_textf(font, color, (SCREEN_WIDTH / 2), 25 - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, "%u", *score);
+	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, 25 - (al_get_font_line_height(font->getFont()) / 2), ALLEGRO_ALIGN_CENTER, "%u", *score);
 }
 
-void draw_endgame(const ALLEGRO_COLOR& color, const ALLEGRO_FONT * font, const unsigned int * score)
+void draw_endgame(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
-	al_draw_textf(font, color, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) - al_get_font_line_height(font), ALLEGRO_ALIGN_CENTER, "Your score: %u", *score);
-	al_draw_textf(font, color, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
+	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT - al_get_font_line_height(font->getFont()), ALLEGRO_ALIGN_CENTER, "Your score: %u", *score);
+	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
 }
 
 int main(int argn, char** argv)
 {
 	bool continue_to_play = true;
 	bool draw = false;
-	bool has_winner = false;
 
 	// Initialize the basics objects of Allegro
 	Validate::object_was_initialized(al_init(), "Allegro");
 	Validate::object_was_initialized(al_install_keyboard(), "Keyboard");
-	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives");
-	Validate::object_was_initialized(al_init_font_addon(), "Font");
-	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF");
+	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives Addon");
+	Validate::object_was_initialized(al_init_font_addon(), "Font Addon");
+	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF Addon");
 
 	// Initialize the object of Allegro that has encapsulation
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
 	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(SCREEN_WIDTH, SCREEN_HEIGHT);
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
-	ALLEGRO_FONT * font = al_load_ttf_font("Oswald-Medium.ttf", 24, ALLEGRO_TTF_NO_KERNING);
-	Validate::object_was_initialized(font, "Font");
+	std::shared_ptr<ATTFFont> SPFont_24 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 24);
 
 	// add source to event queue
 	al_register_event_source(UPAEventQueue->getEventQueue(), al_get_keyboard_event_source());
@@ -166,7 +164,7 @@ int main(int argn, char** argv)
 			if(scene == 1)
 			{
 				// draw starter screen
-				draw_starter_menu(ACWhite, font);
+				draw_starter_menu(ACWhite, SPFont_24);
 			}
 			else if(scene == 2)
 			{
@@ -174,16 +172,15 @@ int main(int argn, char** argv)
 				al_draw_rectangle(OScreenBoundaries.collision_line_left(), OScreenBoundaries.collision_line_top(), OScreenBoundaries.collision_line_right(), OScreenBoundaries.collision_line_botton(), ACWhite, 1);
 				UPWorm->draw(&ACWhite);
 				powerup.draw(&ACWhite);
-				draw_score(ACWhite, font, &score);
+				draw_score(ACWhite, SPFont_24, &score);
 			}
 			else
 			{
 				// draw starter screen
-				draw_endgame(ACWhite, font, &score);
+				draw_endgame(ACWhite, SPFont_24, &score);
 			}
 			al_flip_display();
 		}
 	}
-	//al_destroy_font(font);
 	return 0;
 }
