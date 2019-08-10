@@ -3,33 +3,43 @@
 #include "AEventQueue.h"
 #include "ATTFFont.h"
 #include "Object.h"
-#include "Powerup.h"
+#include "Food.h"
 #include "Worm.h"
 #include <memory>
 
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-#define HALF_SCREEN_WIDTH 320
-#define HALF_SCREEN_HEIGHT 240
 
 void draw_starter_menu(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font)
 {
-	char msg[] = "Press Enter to Play";
-	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT - (al_get_font_line_height(font->getFont()) / 2), ALLEGRO_ALIGN_CENTER, msg);
+	al_draw_textf(
+		font->getFont(),
+		color,
+		Constant::HALF_SCREEN_WIDTH,
+		Constant::HALF_SCREEN_HEIGHT - (al_get_font_line_height(font->getFont()) / 2),
+		ALLEGRO_ALIGN_CENTER,
+		Constant::MSG_TO_PLAY
+	);
 }
 
 void draw_score(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
 	
-	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, 25 - (al_get_font_line_height(font->getFont()) / 2), ALLEGRO_ALIGN_CENTER, "%u", *score);
+	al_draw_textf(
+		font->getFont(),
+		color,
+		Constant::HALF_SCREEN_WIDTH,
+		(Constant::SCORE_HEIGHT / 2) - (al_get_font_line_height(font->getFont()) / 2),
+		ALLEGRO_ALIGN_CENTER,
+		"%u",
+		*score
+	);
 }
 
 void draw_endgame(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
-	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT - al_get_font_line_height(font->getFont()), ALLEGRO_ALIGN_CENTER, "Your score: %u", *score);
-	al_draw_textf(font->getFont(), color, HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
+	al_draw_textf(font->getFont(), color, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT - al_get_font_line_height(font->getFont()), ALLEGRO_ALIGN_CENTER, "Your score: %u", *score);
+	al_draw_textf(font->getFont(), color, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
 }
 
 int main(int argn, char** argv)
@@ -44,9 +54,9 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init_font_addon(), "Font Addon");
 	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF Addon");
 
-	// Initialize the object of Allegro that has encapsulation
+	// Initialize the object of Allegro that had been encapsulated
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
-	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(SCREEN_WIDTH, SCREEN_HEIGHT);
+	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>(Constant::SCREEN_WIDTH, Constant::SCREEN_HEIGHT);
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
 	std::shared_ptr<ATTFFont> SPFont_24 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 24);
 
@@ -60,10 +70,16 @@ int main(int argn, char** argv)
 	ALLEGRO_COLOR ACWhite = al_map_rgba_f(1, 1, 1, 1);
 
 	// Screen Bounderies
-	Object OScreenBoundaries(10, 50, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 60, "Screen Boundaries");
+	Object OScreenBoundaries(
+		Constant::MARGIN_SCREEN_BOUNDARIES,
+		Constant::SCORE_HEIGHT,
+		Constant::SCREEN_WIDTH - (Constant::MARGIN_SCREEN_BOUNDARIES * 2),
+		Constant::SCREEN_HEIGHT - Constant::SCORE_HEIGHT - Constant::MARGIN_SCREEN_BOUNDARIES,
+		"Screen Boundaries"
+	);
 
 	// Power up
-	Powerup powerup(50, 50, 10, 10, "Power up");
+	Food powerup;
 	
 	// Worm
 	std::unique_ptr<Worm> UPWorm;
@@ -131,7 +147,9 @@ int main(int argn, char** argv)
 						scene++;
 					}
 				}
-				else if (key[ALLEGRO_KEY_ESCAPE])
+				
+				// exit game
+				if (key[ALLEGRO_KEY_ESCAPE])
 				{
 					continue_to_play = false;
 				}

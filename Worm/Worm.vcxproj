@@ -149,7 +149,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Piece.cpp" />
-    <ClCompile Include="Powerup.cpp" />
+    <ClCompile Include="Food.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Validate.cpp" />
     <ClCompile Include="Worm.cpp" />
@@ -162,7 +162,7 @@
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Piece.h" />
-    <ClInclude Include="Powerup.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Validate.h" />
     <ClInclude Include="Worm.h" />
