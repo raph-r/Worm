@@ -4,6 +4,7 @@
 /**
  * <EN>
  * Abstract object that represents a square
+ *
  * <PT-Br>
  * Objeto abstrato que representar um quadrado
 */
@@ -32,7 +33,7 @@ class Square
 		 * @param[in] top_left_y
 		 * @param[in] width
 		 * @param[in] height
-		 * @param[in] names
+		 * @param[in] name
 		*/
 		Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name);
 

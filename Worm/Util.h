@@ -4,6 +4,7 @@
 /**
  * <EN>
  * Namespace of methods to general use
+ * 
  * <PT-Br>
  * Namespace de metodos para uso geral
 */

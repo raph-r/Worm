@@ -5,6 +5,7 @@
 /**
  * <EN>
  * Encapsulate the ALLEGRO_FONT class - TTF
+ *
  * <PT-Br>
  * Encapsula a classe ALLEGRO_FONT - TTF
 */
@@ -30,7 +31,7 @@ class ATTFFont
 		/**
 		 * <EN>
 		 * Class desconstructor
-
+		 *
 		 * <PT-Br>
 		 * Desconstrutor da classe
 		*/
