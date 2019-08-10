@@ -42,7 +42,7 @@ class ATTFFont
 		 *
 		 * <PT-Br>
 		 * Captura a fonte que a instancia representa
-		 * @return ponteiro para ALLGRO_FONT
+		 * @return ponteiro para ALLEGRO_FONT
 		*/
 		ALLEGRO_FONT * getFont() const;
 };

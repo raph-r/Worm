@@ -1,4 +1,11 @@
 #pragma once
+
+/**
+ * <EN>
+ * Constant values
+ * <PT-Br>
+ * Valores constantes
+*/
 class Constant
 {
 	public:
