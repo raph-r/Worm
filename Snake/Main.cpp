@@ -2,6 +2,7 @@
 #include "ADisplay.h"
 #include "AEventQueue.h"
 #include "ATTFFont.h"
+#include "ASample.h"
 #include "Square.h"
 #include "Food.h"
 #include "Snake.h"
@@ -49,12 +50,17 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives Addon");
 	Validate::object_was_initialized(al_init_font_addon(), "Font Addon");
 	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF Addon");
+	Validate::object_was_initialized(al_install_audio(), "Audio");
+	Validate::object_was_initialized(al_init_acodec_addon(), "Audio Codec");
 
 	// Initialize the object of Allegro that had been encapsulated
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
 	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>();
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
 	std::shared_ptr<ATTFFont> SPFont_24 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 24);
+
+	al_reserve_samples(2);
+	std::unique_ptr<ASample> eat_sound = std::make_unique<ASample>("eat.wav", ALLEGRO_PLAYMODE_ONCE);
 
 	// add source to event queue
 	al_register_event_source(UPAEventQueue->getEventQueue(), al_get_keyboard_event_source());
@@ -98,6 +104,7 @@ int main(int argn, char** argv)
 		switch (event.type)
 		{
 			case ALLEGRO_EVENT_TIMER:
+
 				// Starter Scene and End Game Scene will return to game play, if player press Enter
 				if ((scene == 1 || scene == 3) && key[ALLEGRO_KEY_ENTER])
 				{
@@ -117,6 +124,7 @@ int main(int argn, char** argv)
 					// If Snake overlap food, add worm size
 					if (UPSnake->first_piece_is_overlapping(&food))
 					{
+						eat_sound->play_sample();
 						while(UPSnake->is_overlapping_some_piece(&food)) food.change_location();
 						UPSnake->add_size();
 						score += 20;

@@ -75,24 +75,32 @@
     <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="ADisplay.cpp" />
     <ClCompile Include="AEventQueue.cpp" />
+    <ClCompile Include="ASample.cpp" />
     <ClCompile Include="ATTFFont.cpp" />
     <ClCompile Include="ATimer.cpp" />
     <ClCompile Include="Constant.cpp" />
@@ -158,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="ADisplay.h" />
     <ClInclude Include="AEventQueue.h" />
+    <ClInclude Include="ASample.h" />
     <ClInclude Include="ATTFFont.h" />
     <ClInclude Include="ATimer.h" />
     <ClInclude Include="Constant.h" />
@@ -170,6 +180,11 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Oswald-Medium.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="eat.wav" />
+    <Media Include="end_game.wav" />
+    <Media Include="start_game.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
