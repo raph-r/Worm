@@ -24,7 +24,6 @@ void draw_starter_menu(const ALLEGRO_COLOR& color, const std::shared_ptr<const A
 
 void draw_score(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
-	
 	al_draw_textf(
 		font->getFont(),
 		color,
@@ -116,21 +115,9 @@ int main(int argn, char** argv)
 				else if (scene == 2)
 				{
 					//Test the key pressed
-					if (key[ALLEGRO_KEY_UP])
+					if (key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_RIGHT])
 					{
-						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_UP);
-					}
-					else if (key[ALLEGRO_KEY_DOWN])
-					{
-						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_DOWN);
-					}
-					else if (key[ALLEGRO_KEY_LEFT])
-					{
-						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_LEFT);
-					}
-					else if (key[ALLEGRO_KEY_RIGHT])
-					{
-						UPSnake->add_direction_to_queue_of_directions(ALLEGRO_KEY_RIGHT);
+						UPSnake->add_direction_to_queue_of_directions(Util::identify_pressed_key(key));
 					}
 
 					// If Worm overlap powerup, add worm size

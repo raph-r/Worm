@@ -24,4 +24,17 @@ namespace Util
 	 * @return - True se for igual, caso contrario false
 	*/
 	bool is_horizontal(const unsigned int & direction);
+
+	/**
+	 * <EN>
+	 * Identify what key was pressed
+	 * @param[in] key - Array of flags indicating the state of each key
+	 * @return ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT, ALLEGRO_KEY_UP ou ALLEGRO_KEY_DOWN. Otherwise NULL
+	 *
+	 * <PT-Br>
+	 * Identifica a tecla que foi pressionada
+	 * @param[in] key - Array de bandeiras que identificam cada tecla
+	 * @return ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT, ALLEGRO_KEY_UP ou ALLEGRO_KEY_DOWN. Caso contrario NULL
+	*/
+	unsigned int identify_pressed_key(const unsigned char * key);
 }
