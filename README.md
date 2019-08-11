@@ -1,5 +1,6 @@
 # Snake Game
 A simple Snake Game, using Allegro 5 and C++. The game consists in a snake that have to eat food.
+If you have any question, please, let me know.
 
 ## Why did I do that? To learn:
 * Placement of random powerups(food);
@@ -23,9 +24,17 @@ A simple Snake Game, using Allegro 5 and C++. The game consists in a snake that 
 * Escape - Exit game;
 * Left arrow, right arrow, up arrow and down arrow - Move the snake.
 
+## Built With
+
+* Allegro5 - Primitives Addon
+* Allegro5 - Audio Addon
+* Allegro5 - Audio Codec Addon
+* Allegro5 - Font Addon
+* Allegro5 - Truetype Font Addon
+
 ## Authors
 
-* **Raphael Rodrigues Teixeira de Freitas** - [raph-r](https://github.com/raph-r)
+* **Raphael Rodrigues Teixeira de Freitas** - [Raph-R](https://github.com/raph-r)
 
 ## License
 
