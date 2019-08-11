@@ -105,11 +105,5 @@
     <Media Include="eat.wav">
       <Filter>Arquivos de Recurso</Filter>
     </Media>
-    <Media Include="end_game.wav">
-      <Filter>Arquivos de Recurso</Filter>
-    </Media>
-    <Media Include="start_game.wav">
-      <Filter>Arquivos de Recurso</Filter>
-    </Media>
   </ItemGroup>
 </Project>

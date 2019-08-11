@@ -183,8 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="eat.wav" />
-    <Media Include="end_game.wav" />
-    <Media Include="start_game.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
