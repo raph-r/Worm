@@ -13,9 +13,9 @@ A simple Snake Game, using Allegro 5 and C++. The game consists in a snake that 
 * Overlap - When the snake overlaps itself or overlaps the screen boundaries, the game will end.
 
 ## Scenes
-1 - Start Game
-2 - Game Level
-3 - End Game
+* 1 - Start Game
+* 2 - Game Level
+* 3 - End Game
 
 ## Controls
 
