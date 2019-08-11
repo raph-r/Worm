@@ -1,5 +1,6 @@
 #pragma once
 #include "allegro5/allegro.h"
+#include "Constant.h"
 
 /**
  * <EN>
@@ -37,4 +38,15 @@ namespace Util
 	 * @return ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT, ALLEGRO_KEY_UP ou ALLEGRO_KEY_DOWN. Caso contrario NULL
 	*/
 	unsigned int identify_pressed_key(const unsigned char * key);
+
+	/**
+	 * <EN>
+	 * Reset array of flags indicating the state of each key
+	 * @param[out] key - Array of flags indicating the state of each key
+	 *
+	 * <PT-Br>
+	 * Reseta o array de bandeiras que identificam cada tecla
+	 * @param[out] key - Array de bandeiras que identificam cada tecla
+	*/
+	void reset_array_of_keys(unsigned char * key);
 }

@@ -7,9 +7,6 @@
 #include "Snake.h"
 #include <memory>
 
-#define KEY_SEEN 1
-#define KEY_RELEASED 2
-
 void draw_starter_menu(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font)
 {
 	al_draw_textf(
@@ -139,17 +136,15 @@ int main(int argn, char** argv)
 				}
 
 				// Reset array of keys
-				for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
-				{
-					key[i] &= KEY_SEEN;
-				}
+				Util::reset_array_of_keys(key);
+
 				draw = true;
 				break;
 			case ALLEGRO_EVENT_KEY_DOWN:
-				key[event.keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
+				key[event.keyboard.keycode] = Constant::KEY_SEEN | Constant::KEY_RELEASED;
 				break;
 			case ALLEGRO_EVENT_KEY_UP:
-				key[event.keyboard.keycode] &= KEY_RELEASED;
+				key[event.keyboard.keycode] &= Constant::KEY_RELEASED;
 				break;
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				continue_to_play = false;

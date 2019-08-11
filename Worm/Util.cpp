@@ -29,3 +29,11 @@ unsigned int Util::identify_pressed_key(const unsigned char * key)
 	}
 	return NULL;
 }
+
+void Util::reset_array_of_keys(unsigned char * key)
+{
+	for (unsigned int i = 0; i < ALLEGRO_KEY_MAX; i++)
+	{
+		key[i] &= Constant::KEY_SEEN;
+	}
+}

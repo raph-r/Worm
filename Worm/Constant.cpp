@@ -8,6 +8,8 @@ const unsigned int Constant::HALF_SCREEN_WIDTH = Constant::SCREEN_WIDTH / 2;
 const unsigned int Constant::HALF_SCREEN_HEIGHT = Constant::SCREEN_HEIGHT / 2;
 const unsigned int Constant::SCORE_HEIGHT = 50;
 const unsigned int Constant::MARGIN_SCREEN_BOUNDARIES = 10;
+const unsigned int Constant::KEY_SEEN = 1;
+const unsigned int Constant::KEY_RELEASED = 2;
 
 const int Constant::ACCELERATION_OF_PIECE = 10;
 const int Constant::PIECE_WIDTH = 10;
