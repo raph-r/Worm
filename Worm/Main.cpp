@@ -77,10 +77,7 @@ int main(int argn, char** argv)
 		"Screen Boundaries"
 	);
 
-	// Power up
-	Food powerup;
-	
-	// Worm
+	Food food;
 	std::unique_ptr<Snake> UPSnake;
 
 	//captures the current event
@@ -108,7 +105,7 @@ int main(int argn, char** argv)
 				if ((scene == 1 || scene == 3) && key[ALLEGRO_KEY_ENTER])
 				{
 					UPSnake = std::make_unique<Snake>();
-					powerup.change_location();
+					food.change_location();
 					scene = 2;
 					score = 0;
 				}
@@ -120,10 +117,10 @@ int main(int argn, char** argv)
 						UPSnake->add_direction_to_queue_of_directions(Util::identify_pressed_key(key));
 					}
 
-					// If Worm overlap powerup, add worm size
-					if (UPSnake->first_piece_is_overlapping(&powerup))
+					// If Snake overlap food, add worm size
+					if (UPSnake->first_piece_is_overlapping(&food))
 					{
-						while(UPSnake->is_overlapping_some_piece(&powerup)) powerup.change_location();
+						while(UPSnake->is_overlapping_some_piece(&food)) food.change_location();
 						UPSnake->add_size();
 						score += 20;
 					}
@@ -176,7 +173,7 @@ int main(int argn, char** argv)
 				// draw Screen boundaries
 				al_draw_rectangle(OScreenBoundaries.get_line_left(), OScreenBoundaries.get_line_top(), OScreenBoundaries.get_line_right(), OScreenBoundaries.get_line_botton(), ACWhite, 1);
 				UPSnake->draw(&ACWhite);
-				powerup.draw(&ACWhite);
+				food.draw(&ACWhite);
 				draw_score(ACWhite, SPFont_24, &score);
 			}
 			else
