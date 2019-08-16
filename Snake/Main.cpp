@@ -8,7 +8,18 @@
 #include "Snake.h"
 #include <memory>
 
-void draw_starter_menu(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font)
+/**
+ * <EN>
+ * Draw the initial scene of game
+ * @param[in] color - Color that will be used to draw
+ * @param[in] font - ATTFFont that will be used to draw
+ *
+ * <PT-Br>
+ * Desenha a cena inicial do jogo
+ * @param[in] color - Cor que devera ser utilizada para desenhar
+ * @param[in] font - ATTFFont que sera utilizada para desenhar
+*/
+void draw_initial_scene(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font)
 {
 	al_draw_textf(
 		font->getFont(),
@@ -20,6 +31,19 @@ void draw_starter_menu(const ALLEGRO_COLOR& color, const std::shared_ptr<const A
 	);
 }
 
+/**
+ * <EN>
+ * Draw the initial scene of game
+ * @param[in] color - Color that will be used to draw
+ * @param[in] font - ATTFFont that will be used to draw
+ * @param[in] score - Player`s score
+ *
+ * <PT-Br>
+ * Desenha a cena inicial do jogo
+ * @param[in] color - Cor que devera ser utilizada para desenhar
+ * @param[in] font - ATTFFont que sera utilizada para desenhar
+ * @param[in] score - Pontuacao do jogador
+*/
 void draw_score(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
 	al_draw_textf(
@@ -33,6 +57,19 @@ void draw_score(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont
 	);
 }
 
+/**
+ * <EN>
+ * Draw the end scene of game
+ * @param[in] color - Color that will be used to draw
+ * @param[in] font - ATTFFont that will be used to draw
+ * @param[in] score - Player`s score
+ *
+ * <PT-Br>
+ * Desenha a cena final do jogo
+ * @param[in] color - Cor que devera ser utilizada para desenhar
+ * @param[in] font - ATTFFont que sera utilizada para desenhar
+ * @param[in] score - Pontuacao do jogador
+*/
 void draw_endgame(const ALLEGRO_COLOR& color, const std::shared_ptr<const ATTFFont>& font, const unsigned int * score)
 {
 	al_draw_textf(font->getFont(), color, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT - al_get_font_line_height(font->getFont()), ALLEGRO_ALIGN_CENTER, "Your score: %u", *score);
@@ -169,7 +206,7 @@ int main(int argn, char** argv)
 			if(scene == 1)
 			{
 				// draw starter screen
-				draw_starter_menu(ACWhite, SPFont_24);
+				draw_initial_scene(ACWhite, SPFont_24);
 			}
 			else if(scene == 2)
 			{
